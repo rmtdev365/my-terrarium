@@ -22,7 +22,8 @@ function dragElement(terrariumElement) {
 	//set 4 positions for positioning on the screen
 	var pos1 = 0,
 		pos2 = 0,
-		pos3 = 0,
+
+	    pos4 = e.clientY;pos3 = 0,
 		pos4 = 0;
 
 	//1. when you touch the terrariumElement, start tracking the pointer
@@ -36,6 +37,7 @@ function dragElement(terrariumElement) {
 		//3. set pos4 to be e's clientY
 		pos4 = e.clientY;
 		//4. when the mouse moves, start the drag
+		pos4 = e.clientY;
 		document.onpointermove = elementDrag;
 		//5. when the mouse is lifted, stop the drag
 		document.onpointerup = closeDragElement;
@@ -44,8 +46,12 @@ function dragElement(terrariumElement) {
 	function elementDrag(e) {
 		// calculate the new cursor position
 		//5. set pos1 = where the Xmouse WAS - where it IS
+		pos1 = pos3 - e.clientX;
 		//6. set pos2 = where the Ymouse WAS - where it IS
+		pos2 = pos4 - e.clientY;
 		//7. reset pos3 to current location of Xmouse
+		pos3 = e.clientX;
+		
 		//8. reset pos4 to current location of Ymouse
 		//console.log(pos1, pos2, pos3, pos4);
 		// set the element's new position:
@@ -56,6 +62,8 @@ function dragElement(terrariumElement) {
 	function closeDragElement() {
 		// stop calculating when mouse is released
 		//9. reset the raised pointer to null
+		document.onpointerup = null;
 		//10. reset the moved pointer to null
+		document.onpointermove = null;
 	}
 }
